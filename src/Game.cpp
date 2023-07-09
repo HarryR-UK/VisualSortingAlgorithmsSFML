@@ -1,5 +1,4 @@
 #include "../include/Game.h"
-#include <thread>
 
 const bool Game::isRunning() const
 {
@@ -16,7 +15,6 @@ Game::Game(Blocks* blocks)
 {
     m_blocks = blocks;
     m_blocks->setWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-    m_blocks->setWindow(m_window);
 
     initVariables();
     initWindow();
@@ -61,25 +59,23 @@ void Game::initText()
 
 void Game::pollEvents()
 {
-    while(isRunning())
+    while(m_window->pollEvent(m_event))
     {
-        while(m_window->pollEvent(m_event))
-        {
-            switch (m_event.type) {
-                case sf::Event::Closed:
-                    m_window->close();
-                    break;
-                default:
-                    break;
-            }
+        switch (m_event.type) {
+            case sf::Event::Closed:
+                m_window->close();
+                break;
+            default:
+                break;
         }
-
     }
 }
 
 void Game::update()
 {
-    pollEvents();
+    this->pollEvents();
+
+    m_blocks->update(Time::deltaTime);
 }
 
 void Game::render()
@@ -93,7 +89,6 @@ void Game::render()
 
 void Game::startGLoop()
 {
-    m_sortingThread = m_blocks->startUpdateThread();
     while(this->isRunning())
     {
         Time::initDeltaTime();
@@ -103,5 +98,4 @@ void Game::startGLoop()
         this->render();
 
     }
-    m_sortingThread->join();
 }
