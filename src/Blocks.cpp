@@ -19,8 +19,12 @@ Blocks::Blocks()
 
 void Blocks::initVariables()
 {
+
+    m_blocks.clear();
+    m_blockSizes.clear();
+
     m_randomBlockSize = 0;
-    m_numberOfBlocks = 200;
+    m_numberOfBlocks = 400;
     m_isSorting = false;
     m_isSorted = false;
 }
@@ -63,7 +67,7 @@ void Blocks::sortBlocks()
 
                 //std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
-                usleep(500);
+                usleep(100);
                 int tempPrevSize = m_blockSizes[j];
                 m_blockSizes[j] = m_blockSizes[j+1];
                 m_blockSizes[j+1] = tempPrevSize;
@@ -100,7 +104,7 @@ void Blocks::sortBlocks()
                 usleep(800);
             }
 
-
+            m_isSorting = false;
             m_isSorted = true;
             break;
         }
@@ -110,15 +114,22 @@ void Blocks::sortBlocks()
 
 void Blocks::update(float deltaTime)
 {
+
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !m_isSorting)
     {
         m_isSorting = true;
         m_blockSortThread = std::thread(&Blocks::sortBlocks, this);
     }
 
-    if(m_isSorted)
+    if(!m_isSorting && m_blockSortThread.joinable())
     {
+        m_blockSortThread.join();
+    }
 
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::R) && !m_isSorting)
+    {
+        this->initVariables();
+        this->initBlocks();
     }
 }
 
