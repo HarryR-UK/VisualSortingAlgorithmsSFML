@@ -1,3 +1,4 @@
+#include <thread>
 #ifndef BLOCKS_H
 #pragma once
 
@@ -5,6 +6,7 @@
 #include<vector>
 #include<SFML/Graphics.hpp>
 #include<SFML/System.hpp>
+#include <unistd.h>
 
 class Blocks
 {
@@ -14,6 +16,7 @@ class Blocks
         int m_numberOfBlocks;
         std::vector<int> m_blockSizes;
         std::vector<sf::RectangleShape> m_blocks;
+        std::vector<float> m_blockXPos;
 
         int m_randomBlockSize;
 
@@ -21,6 +24,11 @@ class Blocks
         int m_windowHeight;
     
         sf::RectangleShape m_newBlock;
+
+        std::thread m_blockSortThread;
+
+        bool m_isSorting;
+        bool m_isSorted;
 
     public:
         Blocks();
@@ -30,8 +38,11 @@ class Blocks
         void render(sf::RenderTarget& target);
         void initBlocks();
 
+        void sortBlocks();
+
         // ACCESSORS
         void setWindowSize(int width, int height);
+        void setBarNumber(int number);
 };
 
 #endif // !BLOCKS_H

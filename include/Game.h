@@ -31,6 +31,7 @@ class Game{
 
         // THREADING
         std::thread m_inputThread;
+        std::thread m_eventThread;
 
         //Objects
         Blocks* m_blocks;

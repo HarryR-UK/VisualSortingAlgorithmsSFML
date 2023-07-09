@@ -14,15 +14,15 @@ Game::Game(Blocks* blocks)
     : WINDOW_WIDTH(sf::VideoMode::getDesktopMode().width / 1.2), WINDOW_HEIGHT(sf::VideoMode::getDesktopMode().height / 1.2)
 {
     m_blocks = blocks;
+    m_blocks->setWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
     initVariables();
     initWindow();
     initFont();
     initText();
-
-    m_blocks->setWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-
     m_blocks->initBlocks();
+
+
 
 
     startGLoop();

@@ -14,11 +14,14 @@ std::vector<float> sizes;
 
 
 
-int main(void)
+int main(int argc, char* argv[])
 {
+    
+
     std::srand(static_cast<unsigned>(time(NULL)));
 
     Blocks blocks;
+
     Game game(&blocks);
    
     return 0;
