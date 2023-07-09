@@ -108,18 +108,30 @@ void Blocks::sortBlocks()
 
 }
 
-void Blocks::update(float deltaTime)
+void Blocks::setWindow(sf::RenderWindow *window)
 {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !m_isSorting)
+    this->m_window = window;
+}
+
+std::thread* Blocks::startUpdateThread()
+{
+    m_blockSortThread = std::thread(&Blocks::update, this);
+    return &m_blockSortThread;
+}
+
+void Blocks::update()
+{
+
+    while(m_window->isOpen())
     {
-        m_isSorting = true;
-        m_blockSortThread = std::thread(&Blocks::sortBlocks, this);
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !m_isSorting)
+        {
+            m_isSorting = true;
+            sortBlocks();
+        }
+
     }
 
-    if(m_isSorted)
-    {
-
-    }
 }
 
 void Blocks::render(sf::RenderTarget &target)

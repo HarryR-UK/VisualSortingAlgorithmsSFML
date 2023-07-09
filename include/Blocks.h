@@ -30,11 +30,13 @@ class Blocks
         bool m_isSorting;
         bool m_isSorted;
 
+        sf::RenderWindow* m_window;
+
     public:
         Blocks();
         ~Blocks();
 
-        void update(float deltaTime);
+        void update();
         void render(sf::RenderTarget& target);
         void initBlocks();
 
@@ -43,6 +45,9 @@ class Blocks
         // ACCESSORS
         void setWindowSize(int width, int height);
         void setBarNumber(int number);
+        void setWindow(sf::RenderWindow* window);
+
+        std::thread* startUpdateThread();
 };
 
 #endif // !BLOCKS_H

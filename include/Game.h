@@ -31,7 +31,7 @@ class Game{
 
         // THREADING
         std::thread m_inputThread;
-        std::thread m_eventThread;
+        std::thread* m_sortingThread;
 
         //Objects
         Blocks* m_blocks;
