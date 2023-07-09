@@ -20,6 +20,10 @@ Game::Game(Blocks* blocks)
     initFont();
     initText();
 
+    m_blocks->setWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+
+    m_blocks->initBlocks();
+
 
     startGLoop();
 }
@@ -69,27 +73,29 @@ void Game::pollEvents()
 
 void Game::update()
 {
-    pollEvents();
+    this->pollEvents();
+
+    m_blocks->update(Time::deltaTime);
 }
 
 void Game::render()
 {
     m_window->clear();
 
-
+    m_blocks->render(*this->m_window);
 
     m_window->display();
 }
 
 void Game::startGLoop()
 {
-    while(isRunning())
+    while(this->isRunning())
     {
         Time::initDeltaTime();
 
-        update();
+        this->update();
 
-        render();
+        this->render();
 
     }
 }
