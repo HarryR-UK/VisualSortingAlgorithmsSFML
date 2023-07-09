@@ -4,7 +4,7 @@ project(sortingAlgorithms)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
 #
-set(SOURCE_FILES src/main.cpp src/Game.cpp include/Game.h)
+set(SOURCE_FILES include/Global.h src/main.cpp src/Game.cpp include/Game.h src/Time.cpp include/Time.h src/Blocks.cpp include/Blocks.h)
 add_executable(sortingAlgorithms ${SOURCE_FILES})
 include_directories(/usr/local/include)
 
