@@ -115,7 +115,7 @@ void Blocks::sortBlocks()
 void Blocks::update(float deltaTime)
 {
 
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !m_isSorting)
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !m_isSorting && !m_isSorted)
     {
         m_isSorting = true;
         m_blockSortThread = std::thread(&Blocks::sortBlocks, this);
