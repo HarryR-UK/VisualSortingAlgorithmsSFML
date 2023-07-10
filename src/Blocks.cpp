@@ -1,4 +1,5 @@
 #include "../include/Blocks.h"
+#include <algorithm>
 #include <chrono>
 #include <cstdlib>
 #include <iostream>
@@ -14,6 +15,8 @@ Blocks::~Blocks()
 Blocks::Blocks()
 {
     initVariables();
+    m_sortType = 1;
+    m_sortDelay = 100;
 
 }
 
@@ -49,7 +52,21 @@ void Blocks::initBlocks()
 
 }
 
-void Blocks::sortBlocks()
+void Blocks::sortBlocks(int sortDelay)
+{
+    switch (m_sortType) {
+        case 1:
+            bubbleSort(sortDelay);
+            break;
+        case 2:
+            insertionSort(sortDelay);
+            break;
+        default:
+            break;
+    }
+}
+
+void Blocks::bubbleSort(int sortDelay)
 {
     // BUBBLE SORT
 
@@ -67,7 +84,7 @@ void Blocks::sortBlocks()
 
                 //std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
-                usleep(100);
+                usleep(sortDelay);
                 int tempPrevSize = m_blockSizes[j];
                 m_blockSizes[j] = m_blockSizes[j+1];
                 m_blockSizes[j+1] = tempPrevSize;
@@ -98,6 +115,8 @@ void Blocks::sortBlocks()
                 usleep(800);
             }
 
+            usleep(100);
+
             for(auto &i : m_blocks)
             {
                 i.setFillColor(sf::Color::White);
@@ -112,13 +131,69 @@ void Blocks::sortBlocks()
 
 }
 
+void Blocks::insertionSort(int sortDelay)
+{
+    
+    int i, j, tempSize;
+    float tempPos;
+    sf::RectangleShape tempShape;
+
+    for(i = 1; i < m_numberOfBlocks; i++)
+    {
+        j = i;
+        while(j > 0 && m_blockSizes[j-1] > m_blockSizes[j])
+        {
+            //COLORS
+            m_blocks[j].setFillColor(sf::Color::Red);
+            m_blocks[j-1].setFillColor(sf::Color::Blue);
+
+            usleep(sortDelay);
+
+            tempSize = m_blockSizes[j];
+            m_blockSizes[j] = m_blockSizes[j-1];
+            m_blockSizes[j-1] = tempSize;
+
+            tempPos = m_blocks[j].getPosition().x;
+            m_blocks[j].setPosition(sf::Vector2f(m_blocks[j-1].getPosition().x, m_blocks[j].getPosition().y));
+            m_blocks[j-1].setPosition(sf::Vector2f(tempPos, m_blocks[j-1].getPosition().y));
+
+            tempShape = m_blocks[j];
+            m_blocks[j] = m_blocks[j-1];
+            m_blocks[j-1] = tempShape;
+
+
+            m_blocks[j].setFillColor(sf::Color::White);
+            m_blocks[j-1].setFillColor(sf::Color::White);
+
+            j--;
+        }
+    }
+    // TURN ALL GREEN
+    for(auto &i : m_blocks)
+    {
+        i.setFillColor(sf::Color::Green);
+        usleep(800);
+    }
+
+    usleep(100);
+
+    for(auto &i : m_blocks)
+    {
+        i.setFillColor(sf::Color::White);
+        usleep(800);
+    }
+
+    m_isSorting = false;
+    m_isSorted = true;
+}
+
 void Blocks::update(float deltaTime)
 {
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !m_isSorting && !m_isSorted)
     {
         m_isSorting = true;
-        m_blockSortThread = std::thread(&Blocks::sortBlocks, this);
+        m_blockSortThread = std::thread(&Blocks::sortBlocks, this, m_sortDelay);
     }
 
     if(!m_isSorting && m_blockSortThread.joinable())
@@ -130,6 +205,22 @@ void Blocks::update(float deltaTime)
     {
         this->initVariables();
         this->initBlocks();
+    }
+
+    // sort types
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
+    {
+        m_sortType = 1;
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
+    {
+        m_sortType = 2;
+
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
+    {
+        m_sortType = 3;
+
     }
 }
 

@@ -5,12 +5,10 @@
 
 #include<SFML/Graphics.hpp>
 #include <vector>
-int windowHeight = 700;
-int windowWidth = 1000;
-sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(windowWidth, windowHeight), "BALLS" , sf::Style::Close | sf::Style::None);
+int windowHeight = 1;
+int windowWidth = 1;
+sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(windowWidth, windowHeight), "IGNORE" , sf::Style::Close | sf::Style::None);
 
-std::vector<sf::RectangleShape> blocks;
-std::vector<float> sizes;
 
 
 

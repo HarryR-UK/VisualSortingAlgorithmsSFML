@@ -29,6 +29,10 @@ class Blocks
 
         bool m_isSorting;
         bool m_isSorted;
+        int m_sortDelay;
+
+        // 3 types
+        int m_sortType;
 
     public:
         Blocks();
@@ -38,7 +42,12 @@ class Blocks
         void render(sf::RenderTarget& target);
         void initBlocks();
 
-        void sortBlocks();
+        void sortBlocks(int sortDelay);
+        
+        void bubbleSort(int sortDelay);
+        void insertionSort(int sortDelay);
+        void mergeSort();
+
 
         // ACCESSORS
         void setWindowSize(int width, int height);
