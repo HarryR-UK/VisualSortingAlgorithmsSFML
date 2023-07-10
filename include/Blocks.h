@@ -8,6 +8,8 @@
 #include<SFML/System.hpp>
 #include <unistd.h>
 
+#include "../include/Global.h"
+
 class Blocks
 {
     private:
@@ -19,6 +21,7 @@ class Blocks
         std::vector<float> m_blockXPos;
 
         int m_randomBlockSize;
+        int m_blockHeightFromTopScreen;
 
         int m_windowWidth;
         int m_windowHeight;

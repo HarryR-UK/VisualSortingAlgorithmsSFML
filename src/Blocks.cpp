@@ -17,6 +17,7 @@ Blocks::Blocks()
     initVariables();
     m_sortType = 1;
     m_sortDelay = 100;
+    m_blockHeightFromTopScreen = HEIGHT_AWAY_TOP_SCREEN;
 
 }
 
@@ -38,7 +39,7 @@ void Blocks::initBlocks()
 
     for(int i = 0; i < m_numberOfBlocks; i++)
     {
-        m_randomBlockSize = (rand() % (m_windowHeight - 10)) + 1;
+        m_randomBlockSize = (rand() % (m_windowHeight - m_blockHeightFromTopScreen)) + 1;
         m_blockSizes.push_back(m_randomBlockSize);
         
         m_newBlock.setSize(sf::Vector2f(m_windowWidth / m_numberOfBlocks, m_blockSizes[i]));
