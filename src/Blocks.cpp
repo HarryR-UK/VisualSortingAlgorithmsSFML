@@ -190,38 +190,41 @@ void Blocks::insertionSort(int sortDelay)
 
 void Blocks::update(float deltaTime)
 {
-
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !m_isSorting && !m_isSorted)
+    if(m_window->hasFocus())
     {
-        m_isSorting = true;
-        m_blockSortThread = std::thread(&Blocks::sortBlocks, this, m_sortDelay);
-    }
 
-    if(!m_isSorting && m_blockSortThread.joinable())
-    {
-        m_blockSortThread.join();
-    }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !m_isSorting && !m_isSorted)
+        {
+            m_isSorting = true;
+            m_blockSortThread = std::thread(&Blocks::sortBlocks, this, m_sortDelay);
+        }
 
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::R) && !m_isSorting)
-    {
-        this->initVariables();
-        this->initBlocks();
-    }
+        if(!m_isSorting && m_blockSortThread.joinable())
+        {
+            m_blockSortThread.join();
+        }
 
-    // sort types
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
-    {
-        m_sortType = 1;
-    }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
-    {
-        m_sortType = 2;
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::R) && !m_isSorting)
+        {
+            this->initVariables();
+            this->initBlocks();
+        }
 
-    }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
-    {
-        m_sortType = 3;
+        // sort types
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
+        {
+            m_sortType = 1;
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
+        {
+            m_sortType = 2;
 
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
+        {
+            m_sortType = 3;
+
+        }
     }
 }
 
@@ -242,4 +245,9 @@ void Blocks::setWindowSize(int width, int height)
 {
     m_windowWidth = width;
     m_windowHeight = height;
+}
+
+void Blocks::setWindow(sf::RenderWindow* window)
+{
+    m_window = window;
 }

@@ -14,6 +14,8 @@ class Blocks
 {
     private:
         void initVariables();
+
+        sf::RenderWindow* m_window;
        
         int m_numberOfBlocks;
         std::vector<int> m_blockSizes;
@@ -55,6 +57,8 @@ class Blocks
         // ACCESSORS
         void setWindowSize(int width, int height);
         void setBarNumber(int number);
+
+        void setWindow(sf::RenderWindow* window);
 };
 
 #endif // !BLOCKS_H

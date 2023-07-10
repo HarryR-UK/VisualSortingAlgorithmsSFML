@@ -20,6 +20,8 @@ Game::Game(Blocks* blocks)
     initWindow();
     initFont();
     initText();
+
+    m_blocks->setWindow(this->m_window);
     m_blocks->initBlocks();
 
 
