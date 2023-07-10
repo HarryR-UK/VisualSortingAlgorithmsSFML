@@ -10,3 +10,16 @@ Press _SPACE_ to begin the sort
 Press _1 2 3 4 5_ to choose the algorithms
 
 Press the up and down arrows to adjust the speed of the sorting
+
+# IMAGES
+![NOT_SORTED](img/NOT_SORTED.png)
+
+
+![MID_SORT](img/MID_SORT.png)
+
+
+![GREEN_SORTED](img/GREEN_SORTED.png)
+
+
+![SORTED](img/SORTED.png)
+
