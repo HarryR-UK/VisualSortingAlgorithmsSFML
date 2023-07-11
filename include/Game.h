@@ -2,6 +2,7 @@
 #define GAME_H
 #pragma once
 
+#include <vector>
 #include<thread>
 #include<iostream>
 #include<SFML/Graphics.hpp>
@@ -36,7 +37,9 @@ class Game{
         //Objects
         Blocks* m_blocks;
 
-    
+        //Buttons
+
+        // Vectors
 
     public:
         Game(Blocks* blocks);
@@ -47,6 +50,7 @@ class Game{
         void update();
         void pollEvents();
         void getInput();
+
 
         void render();
 

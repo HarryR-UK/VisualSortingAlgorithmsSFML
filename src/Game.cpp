@@ -11,17 +11,19 @@ Game::~Game()
 }
 
 Game::Game(Blocks* blocks)
-    : WINDOW_WIDTH(sf::VideoMode::getDesktopMode().width / 1.2), WINDOW_HEIGHT(sf::VideoMode::getDesktopMode().height / 1.2)
+    : WINDOW_WIDTH(sf::VideoMode::getDesktopMode().width / 1.2)
+      , WINDOW_HEIGHT(sf::VideoMode::getDesktopMode().height / 1.2)
 {
     m_blocks = blocks;
     m_blocks->setWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+    
 
     initVariables();
     initWindow();
     initFont();
+
     initText();
 
-    m_blocks->setWindow(this->m_window);
     m_blocks->initBlocks();
 
 
@@ -29,6 +31,7 @@ Game::Game(Blocks* blocks)
 
     startGLoop();
 }
+
 
 void Game::initVariables()
 {
@@ -85,7 +88,7 @@ void Game::render()
     m_window->clear();
 
     m_blocks->render(*this->m_window);
-
+    
     m_window->display();
 }
 
