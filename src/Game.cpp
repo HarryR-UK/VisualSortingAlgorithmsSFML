@@ -20,6 +20,7 @@ Game::Game(Blocks* blocks)
     initWindow();
     initFont();
     initText();
+    initButtons();
 
     m_blocks->setWindow(this->m_window);
     m_blocks->initBlocks();
@@ -28,6 +29,13 @@ Game::Game(Blocks* blocks)
 
 
     startGLoop();
+}
+
+void Game::initButtons()
+{
+    m_button = new SortButton;
+    m_button->setWindow(m_window);
+    m_button->setCursor(m_cursor);
 }
 
 void Game::initVariables()
@@ -78,6 +86,8 @@ void Game::update()
     this->pollEvents();
 
     m_blocks->update(Time::deltaTime);
+    m_button->update();
+    m_button->updateMousePos(m_window);
 }
 
 void Game::render()
@@ -85,6 +95,7 @@ void Game::render()
     m_window->clear();
 
     m_blocks->render(*this->m_window);
+    m_button->render(*this->m_window);
 
     m_window->display();
 }

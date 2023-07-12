@@ -1,4 +1,3 @@
-#include <thread>
 #ifndef BLOCKS_H
 #pragma once
 
@@ -7,6 +6,7 @@
 #include<SFML/Graphics.hpp>
 #include<SFML/System.hpp>
 #include <unistd.h>
+#include <thread>
 
 #include "../include/Global.h"
 
@@ -51,6 +51,7 @@ class Blocks
         
         void bubbleSort(int sortDelay);
         void insertionSort(int sortDelay);
+        void selectionSort(int sortDelay);
         void mergeSort();
 
 

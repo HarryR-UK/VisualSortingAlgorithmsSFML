@@ -16,7 +16,7 @@ Blocks::Blocks()
 {
     initVariables();
     m_sortType = 1;
-    m_sortDelay = 100;
+    m_sortDelay = 500;
     m_blockHeightFromTopScreen = HEIGHT_AWAY_TOP_SCREEN;
 
 }
@@ -61,6 +61,9 @@ void Blocks::sortBlocks(int sortDelay)
             break;
         case 2:
             insertionSort(sortDelay);
+            break;
+        case 3:
+            selectionSort(sortDelay);
             break;
         default:
             break;
@@ -186,6 +189,80 @@ void Blocks::insertionSort(int sortDelay)
 
     m_isSorting = false;
     m_isSorted = true;
+}
+
+void Blocks::selectionSort(int sortDelay)
+{
+    int i, j, minIndex;
+    for(i = 0; i < m_numberOfBlocks - 1; i++)
+    {
+        minIndex = i;
+        
+        for(j = i + 1; j < m_numberOfBlocks; j++)
+        {
+            if(m_blockSizes[j] < m_blockSizes[minIndex])
+            {
+                minIndex = j;
+            }
+        }
+
+        if(minIndex != i)
+        {
+            m_blocks[minIndex].setFillColor(sf::Color::Red);
+            m_blocks[i].setFillColor(sf::Color::Blue);
+            
+            usleep(sortDelay);
+
+            int tempSize;
+            float tempPos;
+            sf::RectangleShape tempBlock;
+
+            tempSize = m_blockSizes[minIndex];
+            m_blockSizes[minIndex] = m_blockSizes[i];
+            m_blockSizes[i] = tempSize;
+
+            
+            usleep(sortDelay);
+
+            tempPos = m_blocks[minIndex].getPosition().x;
+            m_blocks[minIndex].setPosition(sf::Vector2f(m_blocks[i].getPosition().x, m_blocks[minIndex].getPosition().y));
+            m_blocks[i].setPosition(sf::Vector2f(tempPos, m_blocks[i].getPosition().y));
+            
+            usleep(sortDelay);
+
+            tempBlock = m_blocks[minIndex];
+            m_blocks[minIndex] = m_blocks[i];
+            m_blocks[i] = tempBlock;
+
+
+            m_blocks[minIndex].setFillColor(sf::Color::White);
+            m_blocks[i].setFillColor(sf::Color::White);
+
+
+        }
+
+
+
+    }
+
+    for(auto &i : m_blocks)
+    {
+        i.setFillColor(sf::Color::Green);
+        usleep(800);
+    }
+
+    usleep(100);
+
+    for(auto &i : m_blocks)
+    {
+        i.setFillColor(sf::Color::White);
+        usleep(800);
+    }
+
+    m_isSorting = false;
+    m_isSorted = true;
+
+
 }
 
 void Blocks::update(float deltaTime)

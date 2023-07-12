@@ -9,6 +9,7 @@
 
 #include "../include/Time.h"
 #include "../include/Blocks.h"
+#include "SortButton.h"
 
 class Game{
     private:
@@ -16,6 +17,7 @@ class Game{
         sf::VideoMode m_videoMode;
 
         sf::Event m_event;
+        sf::Cursor m_cursor;
 
         // Screen Info
         int m_screenWidth;
@@ -25,6 +27,7 @@ class Game{
         void initWindow();
         void initFont();
         void initText();
+        void initButtons();
 
         // FONT
         sf::Font m_mainFont;
@@ -36,7 +39,7 @@ class Game{
         //Objects
         Blocks* m_blocks;
 
-    
+        SortButton* m_button;
 
     public:
         Game(Blocks* blocks);
